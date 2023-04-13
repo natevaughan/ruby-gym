@@ -1,17 +1,6 @@
 class IllegalArgumentException < StandardError
 end
 
-class BinaryNode
-  attr_reader :value
-  attr_accessor :left, :right
-
-  def initialize(value, left = nil, right = nil)
-    @value = value
-    @left = left
-    @right = right
-  end
-end
-
 # AVL balanced binary tree
 class BinaryTree
   attr_reader :root
