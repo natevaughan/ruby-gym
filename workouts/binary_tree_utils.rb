@@ -1,44 +1,6 @@
 class IllegalArgumentException < StandardError
 end
 
-# AVL balanced binary tree
-class BinaryTree
-  attr_reader :root
-
-  def initialize(arr)
-    @root = nil
-    return if arr == nil
-    raise IllegalArgumentException.new("Can only create a binary tree from an array") unless arr&.is_a? Array
-    arr.each { | el | add(el) }
-  end
-
-  def add(value)
-    if @root == nil
-      @root = BinaryNode.new(value)
-    else
-        insert(value, @root)
-    end
-  end
-
-  def insert(value, node)
-    return unless node != nil
-
-    if value < node.value
-      if node.left == nil
-        node.left = BinaryNode.new(value)
-      else
-        insert(value, node.left)
-      end
-    else
-      if node.right == nil
-        node.right = BinaryNode.new(value)
-      else
-        insert(value, node.right)
-      end
-    end
-  end
-end
-
 module BinaryTreeUtils
   def self.traverse(node, arr = [])
      raise IllegalArgumentException.new("Can only traverse a binary node") unless node.is_a? BinaryNode

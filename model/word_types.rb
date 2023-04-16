@@ -1,0 +1,8 @@
+module WordTypes
+  NOUN = 1
+  ADJECTIVE = 2
+  ADVERB = 3
+  VERB_INFINITIVE = 4
+  VERB_GERUND = 5
+  VERB_PAST = 6
+end
