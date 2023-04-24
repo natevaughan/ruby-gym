@@ -14,6 +14,13 @@ module BinaryTreeUtils
      return arr
   end
 
+  def self.contains(node, value)
+    raise IllegalArgumentException.new("Can only traverse a binary node") unless node.is_a? BinaryNode
+    return (node.value == value) ||
+      (node.left != nil && self.contains(node.left, value)) ||
+      (node.right != nil && self.contains(node.right, value))
+  end
+
   def self.find_depth(node, depth = 1)
     return depth - 1 if node == nil
     if node.left == nil && node.right == nil

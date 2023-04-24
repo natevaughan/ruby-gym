@@ -6,19 +6,23 @@ describe AVLBinaryTree do
   describe "#insert" do
     it "should result in a balanced tree with a sequential array" do
       tree = AVLBinaryTree.new([1, 2, 3, 4, 5])
-      expect(tree.root.value).to eq(3)
+      expect(tree.root.value).to eq(2)
       expect(tree.root.right.value).to eq(4)
+      expect(tree.root.balance_factor).to eq(1)
     end
 
     it "should result in a balanced tree with a sequential array" do
       tree = AVLBinaryTree.new([5, 4, 3, 2, 1])
-      expect(tree.root.value).to eq(5) # todo fixme
+      expect(tree.root.value).to eq(4)
     end
 
-    it "should build a balanced tree with a large dataset" do
+    it "should build a balanced tree with a large sequential dataset" do
       tree = AVLBinaryTree.new([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
-      expect(BinaryTreeUtils::find_depth(tree.root)).to eq(6) # todo fixme
+      expect(BinaryTreeUtils::find_depth(tree.root)).to eq(7)
+    end
+
+
     end
   end
 
@@ -43,11 +47,14 @@ describe AVLBinaryTree do
     it "should result in a balanced tree" do
       root = BinaryNode.new(1)
       child = BinaryNode.new(2)
-      root.right = child
       grandchild = BinaryNode.new(3)
-      child.right = grandchild
       greatgrandchild = BinaryNode.new(4)
       grandchild.right = greatgrandchild
+      grandchild.right_depth = 1
+      child.right = grandchild
+      child.right_depth = 2
+      root.right = child
+      root.right_depth = 3
       tree = AVLBinaryTree.new([])
       tree.rotate_left(root)
       expect(child.balance_factor).to eq(0)

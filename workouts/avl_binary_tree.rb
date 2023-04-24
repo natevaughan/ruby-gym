@@ -17,12 +17,22 @@ class AVLBinaryTree
       insert(value, @root)
     end
 
-    if @root.balance_factor == -1 && @root.left.balance_factor == 11
+    if @root.balance_factor < -1
       old_root = @root
       @root = old_root.left
-    elsif @root.balance_factor == 1 && @root.right.balance_factor == -1
+      @root.left_depth = old_root.left_depth
+      old_root.left = @root.right
+      old_root.left_depth = @root.right_depth
+      @root.right = old_root
+      @root.right_depth = [old_root.left_depth, old_root.right_depth].max + 1
+    elsif @root.balance_factor > 1
       old_root = @root
       @root = old_root.right
+      @root.right_depth = old_root.right_depth
+      old_root.right = @root.left
+      old_root.right_depth = @root.left_depth
+      @root.left = old_root
+      @root.left_depth = [old_root.left_depth, old_root.right_depth].max + 1
     end
   end
 
@@ -32,37 +42,46 @@ class AVLBinaryTree
     if value < node.value
       if node.left == nil
         node.left = BinaryNode.new(value)
+        node.left_depth = 1
       else
-        insert(value, node.left)
+        node.left_depth = insert(value, node.left)
       end
     else
       if node.right == nil
         node.right = BinaryNode.new(value)
+        node.right_depth = 1
       else
-        insert(value, node.right)
+        node.right_depth = insert(value, node.right)
       end
     end
 
-    if node.balance_factor == -1 && node.left&.balance_factor == -1
+    if node.left != nil && node.left.balance_factor < -1
       rotate_right(node)
     end
 
-    if node.balance_factor == 1 && node.right&.balance_factor == 1
+    if node.right != nil && node.right.balance_factor > 1
       rotate_left(node)
     end
+
+    [node.left_depth, node.right_depth].max + 1
   end
 
   def rotate_right(parent)
     child = parent.left
     parent.left = child.left
-    child.left = nil
+    parent.left_depth = child.left_depth
+    child.left = parent.right
+    child.left_depth = parent.right_depth
     parent.left.right = child
   end
 
   def rotate_left(parent)
     child = parent.right
     parent.right = child.right
-    child.right = nil
+    parent.right_depth = child.right_depth
+    child.right = parent.left
+    child.right_depth = parent.left_depth
     parent.right.left = child
+    parent.right.left_depth = [child.left_depth, child.right_depth].max + 1
   end
 end
