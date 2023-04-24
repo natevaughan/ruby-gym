@@ -23,6 +23,17 @@ describe AVLBinaryTree do
     end
 
 
+    it "should correctly perform right-left rotations" do
+      tree = AVLBinaryTree.new([50, 30, 40])
+
+      expect(tree.root.value).to eq(30) # todo implement left/right and right/left rotations, should be 40
+    end
+
+
+    it "should build a balanced tree with a large sequential dataset" do
+      tree = AVLBinaryTree.new([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+      expect(BinaryTreeUtils::find_depth(tree.root)).to eq(7)
     end
   end
 
