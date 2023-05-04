@@ -1,8 +1,6 @@
+require_relative './binary_tree'
 
-
-class AVLBinaryTree
-  attr_reader :root
-
+class AVLBinaryTree < BinaryTree
   def initialize(arr)
     @root = nil
     return if arr == nil

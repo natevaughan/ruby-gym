@@ -87,4 +87,20 @@ describe BinaryTreeUtils do
       }
     end
   end
+
+  describe "#leaf_nodes" do
+    it "expects a binary tree" do
+      expect { BinaryTreeUtils::leaf_nodes("") }.to raise_error(IllegalArgumentException)
+    end
+
+    it "returns the root node in a tree of one node" do
+      tree = AVLBinaryTree.new([1])
+      expect(BinaryTreeUtils::leaf_nodes(tree)).to eq([1])
+    end
+
+    it "returns the leaves node in a tree of three nodes" do
+      tree = AVLBinaryTree.new([3, 1, 4])
+      expect(BinaryTreeUtils::leaf_nodes(tree)).to eq([1, 4])
+    end
+  end
 end

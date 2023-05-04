@@ -29,4 +29,24 @@ module BinaryTreeUtils
       return [find_depth(node.left, depth + 1), find_depth(node.right, depth + 1)].max
     end
   end
+
+  def self.leaf_nodes(tree)
+    raise IllegalArgumentException.new("Can only find leaf nodes in a BinaryTree") unless tree.is_a? BinaryTree
+    return self.find_leaves(tree.root, [])
+  end
+
+  private
+  def self.find_leaves(node, accumulator)
+    if node.left == nil && node.right == nil
+      accumulator << node.value
+    else
+      if node.left != nil
+        find_leaves(node.left, accumulator)
+      end
+      if node.right != nil
+        find_leaves(node.right, accumulator)
+      end
+    end
+    accumulator
+  end
 end
