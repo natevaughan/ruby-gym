@@ -43,13 +43,11 @@ internal_time = 0.0
   total = 0
   elapsed = 0.0
   file_path = "./data/#{FILE_NAME_TEMPLATE.sub(FILE_NAME_PLACEHOLDER, n.to_s)}"
-  (0..10).to_a.each do |i|
-    word_counter = WordCounter.new(file_path)
-    word_counter.count_words_in_file
-    total += word_counter.word_count
-    elapsed += word_counter.elapsed_time
-    internal_time += word_counter.elapsed_time
-  end
+  word_counter = WordCounter.new(file_path)
+  word_counter.count_words_in_file
+  total += word_counter.word_count
+  elapsed += word_counter.elapsed_time
+  internal_time += word_counter.elapsed_time
   puts "Counted #{total} words in #{elapsed} ms"
 end
 
@@ -67,13 +65,11 @@ threads = []
     total = 0
     elapsed = 0.0
     file_path = "./data/#{FILE_NAME_TEMPLATE.sub(FILE_NAME_PLACEHOLDER, n.to_s)}"
-    (0..10).to_a.each do |i|
-      word_counter = WordCounter.new(file_path)
-      word_counter.count_words_in_file
-      total += word_counter.word_count
-      elapsed += word_counter.elapsed_time
-      internal_time += word_counter.elapsed_time
-    end
+    word_counter = WordCounter.new(file_path)
+    word_counter.count_words_in_file
+    total += word_counter.word_count
+    elapsed += word_counter.elapsed_time
+    internal_time += word_counter.elapsed_time
     puts "Counted #{total} words in #{elapsed} ms"
   }
 end
